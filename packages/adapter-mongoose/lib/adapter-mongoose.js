@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const cuid = require('cuid');
 const pSettle = require('p-settle');
 const {
   escapeRegExp,
@@ -202,7 +203,7 @@ class MongooseListAdapter extends BaseListAdapter {
     return fieldAdapter.getMongoFieldName();
   }
 
-  _itemsQuery(args, { meta = false } = {}) {
+  _itemsQuery(args, { meta = false, from } = {}) {
     function graphQlQueryToMongoJoinQuery(query) {
       const _query = {
         ...query.where,
@@ -240,9 +241,32 @@ class MongooseListAdapter extends BaseListAdapter {
 
     const queryTree = queryParser({ listAdapter: this }, query);
 
+    const pipeline = pipelineBuilder(queryTree);
+    if (Object.keys(from).length) {
+      const { fromField } = from;
+      const uid = cuid(fromField);
+      const specialField = `${uid}_${fromField}`;
+      const lookup = {
+        $lookup: {
+          from: from.fromList.adapter.model.collection.name,
+          pipeline: [
+            { $match: { $expr: { $eq: ['$_id', mongoose.Types.ObjectId(from.fromId)] } } },
+            { $project: { [fromField]: 1, _id: 0 } },
+          ],
+          as: 'from_magic',
+        },
+      };
+      const bonusPipeline = [
+        lookup,
+        { $addFields: { first: { $arrayElemAt: ['$from_magic', 0] } } },
+        { $addFields: { [specialField]: `$first.${fromField}` } },
+        { $match: { $expr: { $in: ['$_id', `$${specialField}`] } } },
+      ];
+      pipeline.unshift(...bonusPipeline);
+    }
     // Run the query against the given database and collection
     return this.model
-      .aggregate(pipelineBuilder(queryTree))
+      .aggregate(pipeline)
       .exec()
       .then(mutationBuilder(queryTree.relationships))
       .then(foundItems => {

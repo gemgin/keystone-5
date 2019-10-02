@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { mergeWhereClause } from '@keystone-alpha/utils';
 import { MongooseFieldAdapter } from '@keystone-alpha/adapter-mongoose';
 import { KnexFieldAdapter } from '@keystone-alpha/adapter-knex';
 
@@ -123,34 +122,22 @@ export class Relationship extends Implementation {
       };
     }
 
-    const buildManyQueryArgs = (item, args) => {
-      let ids = [];
-      if (item[this.path]) {
-        ids = item[this.path]
-          .map(value => {
-            // The field may have already been filled in during an early DB lookup
-            // (ie; joining when doing a filter)
-            if (value && value.id) {
-              return value.id;
-            }
-
-            return value;
-          })
-          .filter(value => value);
-      }
-      return mergeWhereClause(args, { id_in: ids });
-    };
-
     return {
       [this.path]: (item, args, context, info) => {
-        const filteredQueryArgs = buildManyQueryArgs(item, args);
-        return refList.listQuery(filteredQueryArgs, context, info.fieldName, info);
+        return refList.listQuery(args, context, info.fieldName, info, {
+          fromList: this.getListByKey(this.listKey),
+          fromId: item.id,
+          fromField: this.path,
+        });
       },
 
       ...(this.withMeta && {
         [`_${this.path}Meta`]: (item, args, context, info) => {
-          const filteredQueryArgs = buildManyQueryArgs(item, args);
-          return refList.listQueryMeta(filteredQueryArgs, context, info.fieldName, info);
+          return refList.listQueryMeta(args, context, info.fieldName, info, {
+            fromList: this.getListByKey(this.listKey),
+            fromId: item.id,
+            fromField: this.path,
+          });
         },
       }),
     };

@@ -20,7 +20,9 @@ function parser({ listAdapter, getUID = cuid }, query, pathSoFar = []) {
       `Expected an Object for query, got ${getType(query)} at path ${pathSoFar.join('.')}`
     );
   }
-
+  const excludeFields = listAdapter.fieldAdapters
+    .filter(({ isRelationship, field }) => isRelationship && field.config.many)
+    .map(({ dbPath }) => dbPath);
   const parsedQueries = Object.entries(query).map(([key, value]) => {
     const path = [...pathSoFar, key];
     if (['AND', 'OR'].includes(key)) {
@@ -60,7 +62,13 @@ function parser({ listAdapter, getUID = cuid }, query, pathSoFar = []) {
       };
     }
   });
-  return flattenQueries(parsedQueries, '$and');
+  const flatQueries = flattenQueries(parsedQueries, '$and');
+  const includeFields = Object.values(flatQueries.relationships).map(({ field }) => field);
+
+  return {
+    ...flatQueries,
+    excludeFields: excludeFields.filter(field => !includeFields.includes(field)),
+  };
 }
 
 module.exports = { queryParser: parser };

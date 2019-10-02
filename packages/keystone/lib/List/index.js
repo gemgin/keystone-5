@@ -881,13 +881,13 @@ module.exports = class List {
     return resolvers;
   }
 
-  async listQuery(args, context, queryName, info) {
+  async listQuery(args, context, queryName, info, from) {
     const access = this.checkListAccess(context, undefined, 'read', { queryName });
 
-    return this._itemsQuery(mergeWhereClause(args, access), { info });
+    return this._itemsQuery(mergeWhereClause(args, access), { info, from });
   }
 
-  async listQueryMeta(args, context, queryName, info) {
+  async listQueryMeta(args, context, queryName, info, from) {
     return {
       // Return these as functions so they're lazily evaluated depending
       // on what the user requested
@@ -895,7 +895,7 @@ module.exports = class List {
       getCount: () => {
         const access = this.checkListAccess(context, undefined, 'read', { queryName });
 
-        return this._itemsQuery(mergeWhereClause(args, access), { meta: true, info }).then(
+        return this._itemsQuery(mergeWhereClause(args, access), { meta: true, info, from }).then(
           ({ count }) => count
         );
       },
