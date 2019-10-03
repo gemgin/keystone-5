@@ -10,12 +10,12 @@ order: 1
 
 A good GraphQL API is a combination of the following criteria:
 
-* Enable quick prototyping no matter the client (mobile, desktop, other APIs, etc)
-* Match developer's mental models of the domain
-* Be _obvious_, _consistent_, and _predictable_
-* Be forward compatible with future unknown use-cases
-* Fully leverage the _Graph_ of GraphQL through Relationships
-* Is mostly CRUD-based with escape hatches for Custom Operations
+* **Quick prototyping** no matter the client (mobile, desktop, other APIs, etc)
+* Match developer's **domain knowledge**
+* Be **obvious**, **consistent**, and **predictable**
+* Be **forward compatible** with future unknown use-cases
+* Fully **leverage the _Graph_** of GraphQL through Relationships
+* Is mostly **CRUD-based** with escape hatches for **Custom Operations**
 
 ## Keystone's Schema Design
 
