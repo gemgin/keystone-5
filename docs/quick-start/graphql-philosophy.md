@@ -55,10 +55,12 @@ By modeling a schema in this way, it enables fast iteration with a consistent an
 
 To define a set of Domain Objects, it helps to think about it in terms of what a user will see. A blog site may have a series of Domain Objects, each with their own CRUD operations:
 
-| **Users**    | `createUser`    | `getUser`    | `updateUser`    | `deleteUser`    |
-| **Posts**    | `createPost`    | `getPost`    | `updatePost`    | `deletePost`    |
-| **Comments** | `createComment` | `getComment` | `updateComment` | `deleteComment` |
-| **Images**   | `createImage`   | `getImage`   | `updateImage`   | `deleteImage`   |
+| Domain Object | C               | R            | U               | D               |
+|---------------|-----------------|--------------|-----------------|-----------------|
+| **Users**     | `createUser`    | `getUser`    | `updateUser`    | `deleteUser`    |
+| **Posts**     | `createPost`    | `getPost`    | `updatePost`    | `deletePost`    |
+| **Comments**  | `createComment` | `getComment` | `updateComment` | `deleteComment` |
+| **Images**    | `createImage`   | `getImage`   | `updateImage`   | `deleteImage`   |
 
 #### Related Domain Objects
 
