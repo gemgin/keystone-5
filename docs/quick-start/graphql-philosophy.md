@@ -27,16 +27,17 @@ Keystone's auto-generated GraphQL Schema meets these goals by following a patter
 1. **Custom Operations**.
     For example; an `authenticateUser` / `submitTPSReport` mutation, or a `recentlyActiveUsers` query.
 
-<span align="center">
+<p align="center">
+  <a href="https://twitter.com/JessTelford/status/1179175687560630272">
+    <img src="./img/tweet-graphql-2-things.png" alt="Tweet by Jess Telford: In my experience, the best GraphQL APIs have 2 distinct sets of things: 1. Domain Objects are modelled as type with CRUD mutations (`createUser`/`updateUser`/etc). 2. Common actions involving 0 or more Domain Objects are mutations (`sendEmail`/`finalizeTPSReport`)" style="max-width:500px;" />
+  </a>
+</p>
 
-[![Tweet by Jess Telford: In my experience, the best GraphQL APIs have 2 distinct sets of things: 1. Domain Objects are modelled as type with CRUD mutations (`createUser`/`updateUser`/etc). 2. Common actions involving 0 or more Domain Objects are mutations (`sendEmail`/`finalizeTPSReport`)](./img/tweet-graphql-2-things.png)](https://twitter.com/JessTelford/status/1179175687560630272)
-
-  <sub align="center">
+<sub align="center">
 
 _[Tweet](https://twitter.com/JessTelford/status/1179175687560630272) by [Jess Telford](https://twitter.com/JessTelford)_
 
-  </sub>
-</span>
+</sub>
 
 <br />
 
