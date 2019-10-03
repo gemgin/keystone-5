@@ -134,26 +134,13 @@ mutation {
 
 Note the `data.author.update` object, this is the _Nested Mutation_. Beyond `update` there are also other operations you may wish to perform:
 
-* `connect`
-
-    Connect an existing item to the parent so future queries for related data return the connected item
-
-* `disconnect`
-
-    Break the connection with an existing item (but do not delete that item) so future queries for related data return `null`
-
-* `create`
-
-    Create a new related item and connect it to the parent so future queries for related data return this item
-
-* `update`
-
-    Update an already connected item's data
-
-* `delete`
-
-    Delete an already connected item and disconnect it from the parent so future queries for related data return `null`
-
+| Operation    |                                                                                                                           |
+|--------------|---------------------------------------------------------------------------------------------------------------------------|
+| `connect`    | Connect an existing item to the parent so future queries for related data return the connected item                       |
+| `disconnect` | Break the connection with an existing item (but do not delete that item) so future queries for related data return `null` |
+| `create`     | Create a new related item and connect it to the parent so future queries for related data return this item                |
+| `update`     | Update an already connected item's data                                                                                   |
+| `delete`     | Delete an already connected item and disconnect it from the parent so future queries for related data return `null`       |
 
 > 🤔 Where is `get`?
 > 
