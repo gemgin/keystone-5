@@ -77,6 +77,86 @@ keystone.createList('Image', { /* ... */ });
 
 #### Related Domain Objects
 
+To fully leverage the _Graph_ of GraphQL, relationships between Domain Objects must be defined in a way that allows for both **querying** and **mutating** related data.
+
+GraphQL gives us _querying_ thanks to their type system:
+
+```graphql
+type User {
+  name: String
+}
+
+type Post {
+  title: String
+  author: User
+}
+
+type Query {
+  getPost(id: ID): Post
+}
+```
+
+Here you can see the `Post.author` field is defined as a relationship to a `User`. When doing a query, it follows a predictable pattern:
+
+```graphql
+query {
+  getPost(id: "abc123") {
+    title
+    author {
+      name
+    }
+  }
+}
+```
+
+Defining _mutations_ requires a bit more setup and consideration to performing _nested mutations_.
+
+> _💡 Keystone codifies this for you with the `Relationship` type_
+
+```graphql
+type User {
+  name: String
+}
+
+type Post {
+  title: String
+  author: User
+}
+
+input CreateUserInput {
+  name: String
+}
+
+input UpdateUserInput {
+  id: ID!
+  name: String
+}
+
+input CreatePostInput {
+  title: String
+  author: UserToOneRelationshipInput
+}
+
+input UpdatePostInput {
+  id: ID!
+  title: String
+  author: UserToOneRelationshipInput
+}
+
+input UpdateUserToOneRelationship {
+  create: CreateUserInput
+  update: UpdateUserInput
+  delete: ID
+  connect: ID
+  disconnect: ID
+}
+
+type Query {
+  getPost(id: ID): Post
+}
+```
+
+
 ### Custom Operations
 
 Custom Operations are an emergent property of the schema design. They are not something which should be defined up front.
