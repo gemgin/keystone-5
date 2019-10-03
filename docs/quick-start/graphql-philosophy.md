@@ -38,4 +38,6 @@ _[Tweet](https://twitter.com/JessTelford/status/1179175687560630272) by [Jess Te
   </sub>
 </p>
 
+<br />
+
 CRUD operations are what enable fast iteration of different clients, with a consistent and predictable set of mutations and queries for every Domain Object. This will cover about 90% of the functionality of any application. The final 10% is then covered with Custom Operations which become apparent over time while building the schema.
