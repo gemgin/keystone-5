@@ -66,14 +66,14 @@ To define a set of Domain Objects, it helps to think about it in terms of what a
 > 
 > Because Images may be uploaded and interacted with independently of a Post, or used across multiple posts. Even if they're only used in a single Post, they still meet the definition as a _thing_ which might be queried or modified in some way (for example, querying for a thumbnail version of the image, or updating alt text).
 
-In general, Domain Objects map to Lists in Keystone:
-
-```javascript
-keystone.createList('User', { /* ... */ });
-keystone.createList('Post', { /* ... */ });
-keystone.createList('Comment', { /* ... */ });
-keystone.createList('Image', { /* ... */ });
-```
+> 💡 In general, Domain Objects map to Lists in Keystone:
+> 
+> ```javascript
+> keystone.createList('User', { /* ... */ });
+> keystone.createList('Post', { /* ... */ });
+> keystone.createList('Comment', { /* ... */ });
+> keystone.createList('Image', { /* ... */ });
+> ```
 
 #### Related Domain Objects
 
