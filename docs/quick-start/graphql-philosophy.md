@@ -22,9 +22,11 @@ A good GraphQL API is a combination of the following criteria:
 Keystone's auto-generated GraphQL Schema meets these goals by following a pattern with two distinct sets of things:
 
 1. **Domain Objects**, modelled with CRUD (_Create, Read, Update, Delete_) operations.
+
     For example; the `User` type would have `createUser` / `getUser` / `updateUser` / `deleteUser` mutations.
 
 1. **Custom Operations**.
+
     For example; an `authenticateUser` / `submitTPSReport` mutation, or a `recentlyActiveUsers` query.
 
 <p align="center">
