@@ -53,19 +53,12 @@ Every _thing_ in your application / website / database which can be queried or m
 
 By modeling a schema in this way, it enables fast iteration with a consistent and predictable set of mutations and queries for every Domain Object.
 
-To define a set of Domain Objects, it helps to think about it in terms of what a user will see. A blog site may have a series of Domain Objects such as:
+To define a set of Domain Objects, it helps to think about it in terms of what a user will see. A blog site may have a series of Domain Objects, each with their own CRUD operations:
 
-* Users
-* Posts
-* Comments
-* Images
-
-Each of these has their own set of CRUD operations:
-
-* Users: `createUser` / `getUser` / `updateUser` / `deleteUser`
-* Posts: `createPost` / `getPost` / `updatePost` / `deletePost`
-* Comments: `createComment` / `getComment` / `updateComment` / `deleteComment`
-* Images: `createImage` / `getImage` / `updateImage` / `deleteImage`
+* **Users**: `createUser` / `getUser` / `updateUser` / `deleteUser`
+* **Posts**: `createPost` / `getPost` / `updatePost` / `deletePost`
+* **Comments**: `createComment` / `getComment` / `updateComment` / `deleteComment`
+* **Images**: `createImage` / `getImage` / `updateImage` / `deleteImage`
 
 #### Related Domain Objects
 
