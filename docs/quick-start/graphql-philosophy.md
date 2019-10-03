@@ -49,7 +49,25 @@ _[Tweet](https://twitter.com/JessTelford/status/1179175687560630272) by [Jess Te
 
 ### Domain Objects & CRUD Operations
 
-CRUD Operations enable fast iteration, with a consistent and predictable set of mutations and queries for every Domain Object.
+Every _thing_ in your application / website / database which can be queried or modified in some way is a Domain Object. Each Domain Object has its own set of CRUD operations.
+
+By modeling a schema in this way, it enables fast iteration with a consistent and predictable set of mutations and queries for every Domain Object.
+
+To define a set of Domain Objects, it helps to think about it in terms of what a user will see. A blog site may have a series of Domain Objects such as:
+
+* Users
+* Posts
+* Comments
+* Images
+
+Each of these has their own set of CRUD operations:
+
+* Users: `createUser` / `getUser` / `updateUser` / `deleteUser`
+* Posts: `createPost` / `getPost` / `updatePost` / `deletePost`
+* Comments: `createComment` / `getComment` / `updateComment` / `deleteComment`
+* Images: `createImage` / `getImage` / `updateImage` / `deleteImage`
+
+#### Related Domain Objects
 
 ### Custom Operations
 
