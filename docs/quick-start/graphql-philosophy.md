@@ -111,11 +111,45 @@ query {
 
 Defining _mutations_ requires a bit more setup and consideration to performing _nested mutations_.
 
-> _💡 Keystone codifies this for you with the `Relationship` type_
+> _💡 Keystone implements this pattern with the `Relationship` type_
+
+Nested Mutations are useful when you need to make changes to more than one Domain Object at a time. Just like you may want to query for `Post.author` at the same time as getting `Post.title`, you may want to update `User.name` at the same time as you create a new `Post`.
+
+For example, imagine a UI where an author could update their bio at the same time as creating a post. The mutation would look something like:
+
+```graphql
+mutation {
+  createPost(data: {
+    title: "Hello World",
+    author: {
+      update: {
+        bio: "Hi, I'm a writer now!"
+      }
+    }
+  }) {
+    title
+  }
+}
+```
+
+Note the `data.author.update` object, this is the _Nested Mutation_. Beyond `update` there are also other operations you may wish to perform:
+
+* `create`
+* `update`
+* `delete`
+* `connect`
+* `disconnect`
+
+> 🤔 Where is `get`?
+> 
+> Since `get` is a query concern, and we're only dealing with Nested _Mutations_, it is not included here.
+
+This might be represented in the GraphQL Schema like so:
 
 ```graphql
 type User {
   name: String
+  bio: String
 }
 
 type Post {
@@ -125,11 +159,13 @@ type Post {
 
 input CreateUserInput {
   name: String
+  bio: String
 }
 
 input UpdateUserInput {
   id: ID!
   name: String
+  bio: String
 }
 
 input CreatePostInput {
@@ -151,8 +187,11 @@ input UpdateUserToOneRelationship {
   disconnect: ID
 }
 
-type Query {
-  getPost(id: ID): Post
+type Mutation {
+  createPost(data: CreatePostInput): Post
+  updatePost(data: UpdatePostInput): Post
+  createUser(data: CreateUserInput): User
+  updateUser(data: UpdateUserInput): User
 }
 ```
 
