@@ -1,5 +1,11 @@
 # @keystone-alpha/adapter-knex
 
+## 4.0.12
+
+### Patch Changes
+
+- [84f4dbad](https://github.com/keystonejs/keystone-5/commit/84f4dbad): handle errors better when knex connection is an object
+
 ## 4.0.11
 
 ### Patch Changes
